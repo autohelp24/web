@@ -143,8 +143,8 @@
             z-index: 1;
             backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
-            -webkit-mask-image: linear-gradient(to right, transparent 0%, black 33%, black 66%, transparent 100%);
-            mask-image: linear-gradient(to right, transparent 0%, black 33%, black 66%, transparent 100%);
+            -webkit-mask-image: linear-gradient(to right, transparent 0%, black 45%, black 60%, transparent 100%);
+            mask-image: linear-gradient(to right, transparent 0%, black 45%, black 60%, transparent 100%);
         }
         
         .hero-content {
@@ -159,11 +159,11 @@
         }
         
         .hero h1 {
-            font-size: clamp(3rem, 10vw, 7rem);
+            font-size: clamp(3rem, 7vw, 6rem);
             margin-bottom: 1.5rem;
             line-height: 1.2;
             animation: fadeInUp 1s ease-out;
-            text-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+            text-shadow: 0 0 30px rgba(245, 135, 31, 0.6), 0 5px 15px rgba(0, 0, 0, 0.9);
         }
         
         .hero h1 .highlight {
@@ -576,12 +576,33 @@
             .cta-buttons {
                 flex-direction: column;
                 align-items: center;
-                gap: 2.5rem;
+                gap: 1.5rem;
             }
             
             .btn {
                 width: 100%;
                 max-width: 300px;
+            }
+            
+            /* Optimalizácia pre mobilné zariadenia (napr. iPhone 390px) */
+            .nav-container {
+                padding: 0 1.25rem;
+            }
+            
+            .hero {
+                padding: 6rem 1.25rem 2rem;
+            }
+            
+            .services, .process, .contact {
+                padding: 4rem 1.25rem;
+            }
+            
+            footer {
+                padding: 3rem 1.25rem;
+            }
+            
+            .service-card, .contact-item {
+                padding: 1.5rem;
             }
         }
         
