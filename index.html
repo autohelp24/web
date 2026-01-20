@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AUTOHELP24 - Pomoc na ceste, keď ju najviac potrebujete</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --dark-bg: #282A2E;
+            --orange: #F5871F;
+            --white: #FFFFFF;
+            --light-gray: #f5f5f5;
+            --text-gray: #666;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--dark-bg);
+            color: var(--white);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+        }
+        
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(40, 42, 46, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 0;
+            box-shadow: 0 2px 20px rgba(245, 135, 31, 0.1);
+        }
+        
+        .nav-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-size: 1.5rem;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 800;
+            color: var(--white);
+            text-decoration: none;
+        }
+        
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--orange);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            /* Po zmene na obrázok zmeníme typ pozadia a odstránime font-size pre emoji */
+            background: none; /* Odstránenie oranžového pozadia pre obrázok, ak nie je potrebné */
+            font-size: initial; 
+            padding: 0; /* Pre istotu */
+        }
+
+        /* Nový štýl pre obrázok, aby sa zmestil do logo-icon */
+        .logo-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain; /* Zabezpečí, že sa obrázok prispôsobí kontajneru bez orezania */
+            border-radius: 8px; /* Ak chceme zaobliť aj obrázok */            
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+        
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 500;
+            transition: color 0.3s;
+            font-size: 0.9rem;
+        }
+        
+        .nav-links a:hover {
+            color: var(--orange);
+        }
+        
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--white);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            padding: 6rem 2rem 2rem;
+            background: url('image01.jpg') no-repeat center center;
+            background-size: cover;
+        }
+        
+        /*
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(245, 135, 31, 0.1) 0%, rgba(40, 42, 46, 0.9) 100%);
+            z-index: 1;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            -webkit-mask-image: linear-gradient(to right, transparent 0%, black 45%, black 60%, transparent 100%);
+            mask-image: linear-gradient(to right, transparent 0%, black 45%, black 60%, transparent 100%);
+        }
+        */
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            max-width: 1000px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            min-height: 65vh;
+        }
+        
+        .hero h1 {
+            font-size: clamp(2rem, 6vw, 5rem);
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+            animation: fadeInUp 1s ease-out;
+            text-shadow: 0 0 30px rgba(245, 135, 31, 0.6), 0 5px 15px rgba(0, 0, 0, 0.9);
+        }
+        
+        .hero h1 .highlight {
+            color: var(--orange);
+        }
+        
+        .hero-subtitle {
+            font-size: clamp(1.2rem, 3vw, 1.8rem);
+            margin-bottom: auto;
+            opacity: 0.9;
+            animation: fadeInUp 1s ease-out 0.3s both;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeInUp 1s ease-out 0.6s both;
+        }
+        
+        .btn {
+            padding: 1rem 2.5rem;
+            border: none;
+            border-radius: 50px;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .btn-primary {
+            background: var(--orange);
+            color: var(--white);
+            box-shadow: 0 4px 20px rgba(245, 135, 31, 0.3);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(245, 135, 31, 0.5);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: var(--white);
+            border: 2px solid var(--white);
+        }
+        
+        .btn-secondary:hover {
+            background: var(--white);
+            color: var(--dark-bg);
+        }
+        
+        /* Scroll Down Indicator */
+        .scroll-down {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+            cursor: pointer;
+            animation: bounce 2s infinite;
+            opacity: 0.8;
+            transition: opacity 0.3s;
+        }
+        
+        .scroll-down:hover {
+            opacity: 1;
+        }
+        
+        .scroll-down span {
+            display: block;
+            width: 20px;
+            height: 20px;
+            border-bottom: 3px solid var(--white);
+            border-right: 3px solid var(--white);
+            transform: rotate(45deg);
+            transition: border-color 0.3s;
+        }
+        
+        .scroll-down:hover span {
+            border-color: var(--orange);
+        }
+        
+        /* Services Section */
+        .services {
+            padding: 6rem 2rem;
+            background: linear-gradient(to bottom, var(--dark-bg), #1a1b1e);
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: clamp(2rem, 4vw, 3rem);
+            margin-bottom: 1rem;
+            color: var(--orange);
+        }
+        
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.2rem;
+            margin-bottom: 4rem;
+            opacity: 0.8;
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .service-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 2.5rem;
+            border-radius: 20px;
+            border: 1px solid rgba(245, 135, 31, 0.2);
+            transition: all 0.3s;
+            backdrop-filter: blur(10px);
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--orange);
+            box-shadow: 0 10px 40px rgba(245, 135, 31, 0.2);
+        }
+        
+        .service-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, var(--orange), #ff9d4d);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .service-card h3 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--orange);
+        }
+        
+        .service-card p {
+            opacity: 0.9;
+            line-height: 1.8;
+        }
+        
+        /* Process Section */
+        .process {
+            padding: 6rem 2rem;
+            background: var(--dark-bg);
+        }
+        
+        .process-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+        
+        .step {
+            text-align: center;
+            position: relative;
+            margin-top: 4rem;
+        }
+        
+        .step-number {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--orange), #ff9d4d);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 800;
+            margin: 0 auto 1.5rem;
+            margin-top: 1rem;
+            box-shadow: 0 5px 20px rgba(245, 135, 31, 0.4);
+        }
+
+        .step-number:hover {
+            transform: translateY(-1px);
+            border-color: var(--orange);
+            box-shadow: 0 10px 40px rgba(245, 135, 31, 0.2);
+        }
+        
+        .step h3 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .step p {
+            opacity: 0.9;
+        }
+        
+        /* Contact Section */
+        .contact {
+            padding: 6rem 2rem;
+            background: linear-gradient(135deg, #1a1b1e, var(--dark-bg));
+        }
+        
+        .contact-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 4rem 0;
+        }
+        
+        .contact-item {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 1px solid rgba(245, 135, 31, 0.2);
+        }
+
+        .contact-item:hover {
+            transform: translateY(-10px);
+            border-color: var(--orange);
+            box-shadow: 0 10px 40px rgba(245, 135, 31, 0.2);
+        }
+        
+        .contact-item h3 {
+            color: var(--orange);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+        
+        .contact-item a {
+            color: var(--white);
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: color 0.3s;
+        }
+        
+        .contact-item a:hover {
+            color: var(--orange);
+        }
+        
+        .contact-icon {
+            color: var(--orange);
+            margin-bottom: 1rem;
+            display: flex;
+            justify-content: center;
+        }
+        
+        .contact-icon svg {
+            width: 40px;
+            height: 40px;
+            stroke: currentColor;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            fill: none;
+        }
+        
+        /* Footer */
+        footer {
+            padding: 3rem 2rem;
+            background: #1a1b1e;
+            text-align: center;
+            border-top: 1px solid rgba(245, 135, 31, 0.2);
+        }
+        
+        footer p {
+            opacity: 0.8;
+        }
+        
+        .footer-socials {
+            margin-top: 2rem;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+        }
+        
+        .footer-socials a {
+            color: var(--orange);
+            text-decoration: none;
+            transition: all 0.3s;
+            display: inline-flex;
+        }
+        
+        .footer-socials a:hover {
+            color: var(--white);
+            transform: translateY(-3px);
+        }
+        
+        .footer-socials svg {
+            width: 32px;
+            height: 32px;
+            stroke: currentColor;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            fill: none;
+        }
+        
+        .footer-legal {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .footer-legal h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            color: var(--white);
+            opacity: 0.9;
+        }
+        
+        .footer-legal a {
+            color: var(--white);
+            opacity: 0.6;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+        
+        .footer-legal a:hover {
+            opacity: 1;
+            color: var(--orange);
+        }
+        
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateX(-50%) translateY(0);
+            }
+            40% {
+                transform: translateX(-50%) translateY(-10px);
+            }
+            60% {
+                transform: translateX(-50%) translateY(-5px);
+            }
+        }
+        
+        /* Parallax Divider */
+        .parallax-divider {
+            width: 100%;
+            position: relative;
+            line-height: 0;
+        }
+
+        .parallax-divider img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        .parallax-divider::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: 80px;
+                left: -100%;
+                flex-direction: column;
+                background: rgba(40, 42, 46, 0.98);
+                width: 100%;
+                padding: 2rem;
+                transition: left 0.3s;
+                backdrop-filter: blur(10px);
+            }
+            
+            .nav-links.active {
+                left: 0;
+            }
+            
+            .menu-toggle {
+                display: block;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+                gap: 1.5rem;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 300px;
+            }
+            
+            /* Optimalizácia pre mobilné zariadenia (napr. iPhone 390px) */
+            .nav-container {
+                padding: 0 1.25rem;
+            }
+            
+            .hero {
+                padding: 6rem 1.25rem 2rem;
+            }
+            
+            .services, .process, .contact {
+                padding: 4rem 1.25rem;
+            }
+            
+            footer {
+                padding: 3rem 1.25rem;
+            }
+            
+            .service-card, .contact-item {
+                padding: 1.5rem;
+            }
+        }
+
+        /* Fix for background images on iOS and tablets */
+        @media (max-width: 1180px) {
+            .hero {
+                background-attachment: scroll;
+                background-position: center;
+                background-size: cover;
+            }
+        }
+        
+        /* Scroll animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 1.8s, transform 1.8s;
+        }
+        
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <div class="logo-icon">
+                    <img src="autohelp_logo_symbol_small.png" alt="Logo AUTOHELP24" class="logo-img">
+                </div>
+                <span>AUTOHELP<span style="color: var(--orange);">24</span></span>
+            </a>
+            <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#home" onclick="closeMenu()">Domov</a></li>
+                <li><a href="#services" onclick="closeMenu()">Služby</a></li>
+                <li><a href="#process" onclick="closeMenu()">Ako to funguje</a></li>
+                <li><a href="#contact" onclick="closeMenu()">Kontakt</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>
+                <span class="highlight">AUTOHELP</span>24
+            </h1>
+            <p class="hero-subtitle">
+                Pomoc na ceste, keď ju najviac potrebujete
+            </p>
+            <div class="cta-buttons">
+                <a href="tel:+421905306144" class="btn btn-primary">☎ Zavolať teraz</a>
+                <a href="#services" class="btn btn-secondary">Naše služby</a>
+            </div>
+        </div>
+        <a href="#services" class="scroll-down" aria-label="Posunúť nadol">
+            <span></span>
+        </a>
+    </section>
+
+    <section id="services" class="services">
+        <div class="container">
+            <h2 class="section-title">Naše služby</h2>
+            <p class="section-subtitle">Profesionálna asistencia pri dopravných nehodách.<br>
+Poskytujeme komplexnú pomoc pri dopravných nehodách s dôrazom na rýchlosť a odborný prístup. Pomáhame s celým procesom – vy máte pokoj a čas na zvládnutie stresujúcej situácie.</p>
+            
+            <div class="services-grid">
+                <div class="service-card fade-in">
+                    <div class="service-icon">📍</div>
+                    <h3>Príchod na miesto</h3>
+                    <p>Zabezpečíme rýchly príchod nášho tímu priamo na miesto nehody. Postaráme sa o pomoc s maximálnou profesionalitou a ľudským prístupom.</p>
+                </div>
+                
+                <div class="service-card fade-in">
+                    <div class="service-icon">📄</div>
+                    <h3>Kompletná dokumentácia</h3>
+                    <p>Zabezpečíme správne vyplnenie správy o nehode a pomôžeme s nahlásením poistnej udalosti. Dbáme na presnosť a bezproblémový priebeh celého procesu.</p>
+                </div>
+
+                <div class="service-card fade-in">
+                    <div class="service-icon">🚛</div>
+                    <h3>Profesionálny odťah vozidla</h3>
+                    <p>Zabezpečíme bezpečný a spoľahlivý odťah vozidla do servisu. Spolupracujeme výhradne len s overenými partnermi.</p>
+                </div>
+                
+                <div class="service-card fade-in">
+                    <div class="service-icon">🔧</div>
+                    <h3>Odborná oprava vozidla</h3>
+                    <p>Opravu spoločne zabezpečíme v našej sieti zmluvných servisov, kde za vás vyriešime komunikáciu s technikmi aj s poisťovňou.</p>
+                </div>
+                
+                <div class="service-card fade-in">
+                    <div class="service-icon">🚙</div>
+                    <h3>Náhradné vozidlo</h3>
+                    <p>Poskytneme vám bezplatne náhradné vozidlo, aby ste mohli pokračovať ďalej.</p>
+                </div>
+                
+                <div class="service-card fade-in">
+                    <div class="service-icon">💬</div>
+                    <h3>Poistenie vozidla</h3>
+                    <p>Poskytujeme odborné poradenstvo pri výbere poistenia PZP aj havarijného poistenia.
+Dohodneme uzatvorenie aktuálne najlepšieho poistenia bez zbytočnej námahy a administratívy.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="parallax-divider">
+        <img src="image02.jpg" alt="Pomôžeme vyplniť Správu o nehode" loading="lazy">
+    </div>
+
+    <section id="process" class="process">
+        <div class="container">
+            <h2 class="section-title">Ako to funguje</h2>
+            <p class="section-subtitle">Jednoduchý proces v 7 krokoch:</p>
+            
+            <div class="process-steps">
+                <div class="step fade-in">
+                    <div class="step-number">1</div>
+                    <h3>Kontaktujete nás</h3>
+                    <p>Stačí nám zavolať – sme tu pre vás. Stretneme sa s vami priamo na mieste nehody.</p>
+                </div>
+                
+                <div class="step fade-in">
+                    <div class="step-number">2</div>
+                    <h3>Prichádzame k vám</h3>
+                    <p>Náš skúsený tím dorazí čo najrýchlejšie na miesto nehody. Postaráme sa o vás, poradíme a pomôžeme vám zvládnuť stresujúcu situáciu krok za krokom.</p>
+                </div>
+                
+                <div class="step fade-in">
+                    <div class="step-number">3</div>
+                    <h3>Dokumentácia</h3>
+                    <p>Pomôžeme vám s kompletným vyplnením všetkých potrebných dokumentov. Vysvetlíme vám detaily, aby bolo všetko vyplnené správne a bez chýb.</p>
+                </div>
+                
+                <div class="step fade-in">
+                    <div class="step-number">4</div>
+                    <h3>Výber servisu</h3>
+                    <p>Poradíme vám spoľahlivý partnerský alebo autorizovaný servis. Vyberieme riešenie, ktoré je pre vás najvýhodnejšie a najrýchlejšie.</p>
+                </div>
+                
+                <div class="step fade-in">
+                    <div class="step-number">5</div>
+                    <h3>Odťah vozidla</h3>
+                    <p>Zabezpečíme odťah vozidla priamo z miesta nehody. Postaráme sa o bezpečný prevoz auta do vybraného servisu – bez starostí pre vás.</p>
+                </div>
+
+                <div class="step fade-in">
+                    <div class="step-number">6</div>
+                    <h3>Náhradné vozidlo</h3>
+                    <p>Aby ste mohli pokračovať vo svojich povinnostiach, poskytneme vám bezplatne náhradné vozidlo počas doby opravy.</p>
+                </div>
+                
+                <div class="step fade-in">
+                    <div class="step-number">7</div>
+                    <h3>Oprava vozidla</h3>
+                    <p>Overený servis sa postará o odbornú a kvalitnú opravu vášho vozidla. Všetko prebehne hladko a bez zbytočných problémov.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="parallax-divider">
+        <img src="image03.jpg" alt="Bezplatné poskytnutie náhradného vozidla" loading="lazy">
+    </div>
+
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="contact-content">
+                <h2 class="section-title">Kontaktujte nás</h2>
+                <p class="section-subtitle">Sme tu pre vás 24 hodín denne, 7 dní v týždni</p>
+                
+                <div class="contact-info">
+                    <div class="contact-item fade-in">
+                        <div class="contact-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                            </svg>
+                        </div>
+                        <h3>Telefón</h3>
+                        <a href="tel:+421905306144">+421 905 306 144</a>
+                    </div>
+                    
+                    <div class="contact-item fade-in">
+                        <div class="contact-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                                <polyline points="22,6 12,13 2,6"></polyline>
+                            </svg>
+                        </div>
+                        <h3>Email</h3>
+                        <a href="mailto:autohelp24.sk@gmail.com">autohelp24.sk@gmail.com</a>
+                    </div>
+                    
+                    <div class="contact-item fade-in">
+                        <div class="contact-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <line x1="2" y1="12" x2="22" y2="12"></line>
+                                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                            </svg>
+                        </div>
+                        <h3>Web</h3>
+                        <a href="https://www.autohelp24.sk">www.autohelp24.sk</a>
+                        <a href="https://autohelp24.github.io/web/">autohelp24.github.io/web/</a>                      
+                    </div>
+
+                    <div class="contact-item fade-in">
+                        <div class="contact-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>
+                            </svg>
+                        </div>
+                        <h3>WhatsApp</h3>
+                        <a href="https://wa.me/421905306144" target="_blank">+421 905 306 144</a>
+                    </div>
+
+                    <div class="contact-item fade-in">
+                        <div class="contact-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+                            </svg>
+                        </div>
+                        <h3>Facebook</h3>
+                        <a href="https://www.facebook.com">AUTOHELP24.SK</a>
+                    </div>
+
+                    <div class="contact-item fade-in">
+                        <div class="contact-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                            </svg>
+                        </div>
+                        <h3>Instagram</h3>
+                        <a href="https://www.instagram.com">Autohelp24.sk</a>
+                    </div>
+                </div>
+                
+                <a href="tel:+421905306144" class="btn btn-primary" style="margin-top: 2rem;">Zavolať teraz</a>
+            </div>
+        </div>
+    </section>
+
+    <div class="parallax-divider">
+        <img src="image04.jpg" alt="AUTOHELP24">
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 AUTOHELP24. Všetky práva vyhradené.<br><br></p>
+            <p>Adresa firmy:</p>
+            <p>AUTOHELP24 s.r.o.</p>
+            <p>Karpatské námestie 7770/10A</p>
+            <p>831 06 Bratislava</p>
+            <p>IČO: 57390592</p>
+            <div class="footer-socials">
+                <a href="https://www.facebook.com" target="_blank" aria-label="Facebook">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+                    </svg>
+                </a>
+                <a href="https://www.instagram.com" target="_blank" aria-label="Instagram">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                        <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMenu() {
+            const navLinks = document.getElementById('navLinks');
+            navLinks.classList.toggle('active');
+        }
+        
+        function closeMenu() {
+            const navLinks = document.getElementById('navLinks');
+            navLinks.classList.remove('active');
+        }
+        
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+        
+        // Scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+        
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>
